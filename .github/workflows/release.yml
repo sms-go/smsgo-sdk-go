@@ -1,0 +1,34 @@
+name: Release
+
+# Cria a Release no GitHub e aquece o module proxy (dispara a indexação no
+# pkg.go.dev) sempre que uma tag semver `v*` é enviada.
+#   git tag v0.3.0 && git push origin v0.3.0
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # necessário para criar a Release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes
+
+      - name: Ping Go module proxy (index on pkg.go.dev)
+        continue-on-error: true
+        run: |
+          cd "$(mktemp -d)"
+          go mod init warm >/dev/null 2>&1
+          GOPROXY=https://proxy.golang.org GOFLAGS=-mod=mod \
+            go get "github.com/SMSFy/smsgo-sdk-go@${GITHUB_REF_NAME}"
