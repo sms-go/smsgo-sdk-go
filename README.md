@@ -1,7 +1,7 @@
 # smsgo (Go)
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/SMSFy/smsgo-sdk-go.svg)](https://pkg.go.dev/github.com/SMSFy/smsgo-sdk-go)
-[![CI](https://github.com/SMSFy/smsgo-sdk-go/actions/workflows/ci.yml/badge.svg)](https://github.com/SMSFy/smsgo-sdk-go/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/sms-go/smsgo-sdk-go.svg)](https://pkg.go.dev/github.com/sms-go/smsgo-sdk-go)
+[![CI](https://github.com/sms-go/smsgo-sdk-go/actions/workflows/ci.yml/badge.svg)](https://github.com/sms-go/smsgo-sdk-go/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Official **Go** SDK for [SMSGo](https://smsgo.com.br) — the simple SMS API for Brazil. Send **OTP/2FA, transactional alerts and campaigns** in a few lines of Go.
@@ -21,14 +21,14 @@ Go **1.21+** (uses generics for `Paginated[T]`).
 ## Install
 
 ```bash
-go get github.com/SMSFy/smsgo-sdk-go@latest
+go get github.com/sms-go/smsgo-sdk-go@latest
 ```
 
 ```go
-import smsgo "github.com/SMSFy/smsgo-sdk-go"
+import smsgo "github.com/sms-go/smsgo-sdk-go"
 ```
 
-The import path is `github.com/SMSFy/smsgo-sdk-go`; the package name is `smsgo`.
+The import path is `github.com/sms-go/smsgo-sdk-go`; the package name is `smsgo`.
 
 ## Quick start
 
@@ -41,7 +41,7 @@ import (
 	"log"
 	"os"
 
-	smsgo "github.com/SMSFy/smsgo-sdk-go"
+	smsgo "github.com/sms-go/smsgo-sdk-go"
 )
 
 func main() {
@@ -314,7 +314,7 @@ SMSGO_KEY=yourkey go run ./examples/send-otp +5511999990000
 - [`receive-dlr-webhook`](./examples/receive-dlr-webhook) — receive + verify delivery callbacks
 
 Runnable `Example` functions also live in [`example_test.go`](./example_test.go)
-and render on [pkg.go.dev](https://pkg.go.dev/github.com/SMSFy/smsgo-sdk-go).
+and render on [pkg.go.dev](https://pkg.go.dev/github.com/sms-go/smsgo-sdk-go).
 
 ## Migrating from TotalVoice / Twilio?
 

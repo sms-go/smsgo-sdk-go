@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/SMSFy/smsgo-sdk-go"
+	"github.com/sms-go/smsgo-sdk-go"
 )
 
 // ExampleClient_Send sends a single SMS.

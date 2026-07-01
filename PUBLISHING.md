@@ -1,13 +1,13 @@
-# Publicando o `github.com/SMSFy/smsgo-sdk-go` (pkg.go.dev)
+# Publicando o `github.com/sms-go/smsgo-sdk-go` (pkg.go.dev)
 
 Guia de release do SDK Go. **Não há registry nem conta**: em Go, "publicar" é criar uma **tag semver** no repositório público. O módulo é indexado no [pkg.go.dev](https://pkg.go.dev) e servido pelo *module proxy* (`proxy.golang.org`) na primeira vez que alguém pede a versão.
 
 ## Pré-requisitos (uma vez)
 
-1. Repositório **público** em `github.com/SMSFy/smsgo-sdk-go`.
-2. O `module` em [`go.mod`](go.mod) precisa ser **exatamente** `github.com/SMSFy/smsgo-sdk-go` (é o caminho de import; case-sensitive).
+1. Repositório **público** em `github.com/sms-go/smsgo-sdk-go`.
+2. O `module` em [`go.mod`](go.mod) precisa ser **exatamente** `github.com/sms-go/smsgo-sdk-go` (é o caminho de import; case-sensitive).
 
-> O `SMSFy` tem maiúsculas: o import é `go get github.com/SMSFy/smsgo-sdk-go` com o case exato. O comando `go` cuida do escaping no proxy automaticamente.
+> O handle da org `sms-go` é todo minúsculo: o import é `go get github.com/sms-go/smsgo-sdk-go`. O comando `go` cuida do escaping no proxy automaticamente.
 
 ## Passo a passo do release
 
@@ -27,18 +27,18 @@ O workflow [`/.github/workflows/release.yml`](.github/workflows/release.yml) dis
 
 ```bash
 cd "$(mktemp -d)" && go mod init warm
-GOPROXY=https://proxy.golang.org GOFLAGS=-mod=mod go get github.com/SMSFy/smsgo-sdk-go@v0.3.0
+GOPROXY=https://proxy.golang.org GOFLAGS=-mod=mod go get github.com/sms-go/smsgo-sdk-go@v0.3.0
 ```
-Ou simplesmente abrir `https://pkg.go.dev/github.com/SMSFy/smsgo-sdk-go@v0.3.0` no navegador (o pkg.go.dev busca sob demanda).
+Ou simplesmente abrir `https://pkg.go.dev/github.com/sms-go/smsgo-sdk-go@v0.3.0` no navegador (o pkg.go.dev busca sob demanda).
 
 ## Verificação pós-publicação
 
 ```bash
 cd "$(mktemp -d)" && go mod init t
-go get github.com/SMSFy/smsgo-sdk-go@v0.3.0   # deve resolver a versão
-go doc github.com/SMSFy/smsgo-sdk-go
+go get github.com/sms-go/smsgo-sdk-go@v0.3.0   # deve resolver a versão
+go doc github.com/sms-go/smsgo-sdk-go
 ```
-Página: https://pkg.go.dev/github.com/SMSFy/smsgo-sdk-go
+Página: https://pkg.go.dev/github.com/sms-go/smsgo-sdk-go
 
 ## Notas
 

@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/SMSFy/smsgo-sdk-go"
+	"github.com/sms-go/smsgo-sdk-go"
 )
 
 func main() {

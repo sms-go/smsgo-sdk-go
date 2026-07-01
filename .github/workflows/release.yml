@@ -31,4 +31,4 @@ jobs:
           cd "$(mktemp -d)"
           go mod init warm >/dev/null 2>&1
           GOPROXY=https://proxy.golang.org GOFLAGS=-mod=mod \
-            go get "github.com/SMSFy/smsgo-sdk-go@${GITHUB_REF_NAME}"
+            go get "github.com/sms-go/smsgo-sdk-go@${GITHUB_REF_NAME}"
