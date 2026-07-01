@@ -320,7 +320,7 @@ and render on [pkg.go.dev](https://pkg.go.dev/github.com/sms-go/smsgo-sdk-go).
 
 SMSGo focuses on **simple DX and BRL pricing**. No sender registration to start,
 no dollar billing, credits that don't expire. Full API docs:
-**[smspulse.apidog.io](https://smspulse.apidog.io/)**.
+**[smsgo.apidog.io](https://smsgo.apidog.io/)**.
 
 ## License
 
