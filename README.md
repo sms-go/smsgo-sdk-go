@@ -8,7 +8,7 @@ Official **Go** SDK for [SMSGo](https://smsgo.com.br) — the simple SMS API for
 
 - ⚡ **Integrates in minutes** — auth handled for you (no manual token ritual).
 - 💸 **No monthly fee** — prepaid credits that don't expire, priced in BRL.
-- 🇧🇷 **Brazil-first** — delivery to every carrier, LGPD native.
+- 🇧🇷 **Brazil-first** — optimized delivery for Vivo, Claro, TIM, Oi and other carriers.
 - 🟢 **Zero dependencies** — standard library only. Fully typed.
 - 🎁 **R$ 10 free** on sign-up — test without a card.
 
@@ -54,13 +54,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(res.ID, res.Status) // -> "a1b2c3...", "queued"
 }
 ```
 
 You pass only the `APIKey`. The SDK exchanges it for a Bearer token (valid 48h),
 caches it in memory (guarded by a mutex) and refreshes it automatically when it
-expires or the API returns 401.
+expires or the API returns `401`.
 
 ### Context, everywhere
 
@@ -119,7 +120,7 @@ with the same flag.
 ```go
 sandbox := smsgo.New(smsgo.Options{APIKey: os.Getenv("SMSGO_TEST_KEY")})
 r, _ := sandbox.Send(ctx, smsgo.SendParams{Phone: "+5511999990000", Message: "Teste"})
-r.Test // true
+fmt.Println(r.Test) // true
 
 mode, _ := sandbox.ResolveMode(ctx) // smsgo.ModeTest  (or sandbox.Mode() after the 1st call)
 ```
@@ -141,7 +142,7 @@ plans, _ := client.Billing.Plans(ctx) // tiers by range
 cards, _ := client.Billing.Cards(ctx) // last 4 digits
 
 receipt, _ := client.Billing.Purchase(ctx, smsgo.PurchaseParams{Quantity: 5000})
-receipt.Status // "succeeded" already credited the balance | "processing" confirms via webhook
+fmt.Println(receipt.Status) // "succeeded" already credited | "processing" confirms via webhook
 
 invoices, _ := client.Billing.Invoices(ctx, smsgo.InvoicesParams{Page: 1})
 ```
@@ -237,18 +238,19 @@ On validation failures (422), `e.FieldErrors` carries per-field detail
 (`[]FieldError{ Field, Message }`). Transport/network failures have `Status == 0`
 and `Code == "network_error"`.
 
-| `Code`                    | HTTP | Meaning                          |
-| ------------------------- | ---- | -------------------------------- |
-| `validation_error`        | 422  | Invalid request data             |
-| `unauthorized`            | 401  | Invalid key/token                |
-| `insufficient_balance`    | 402  | Not enough balance               |
-| `provider_out_of_stock`   | 409  | Provider stock unavailable       |
-| `rate_limited`            | 429  | Rate limit reached               |
-| `card_declined`           | 402  | Card declined on purchase        |
-| `authentication_required` | 402  | Card needs authentication (SCA)  |
-| `card_required`           | 400  | No chargeable card               |
-| `payment_unavailable`     | 503  | Payment gateway unavailable      |
-| `network_error`           | 0    | Transport failure (no response)  |
+| `Code`                    | HTTP | Meaning                         |
+| ------------------------- | ---- | ------------------------------- |
+| `bad_request`             | 400  | Invalid request data            |
+| `unauthorized`            | 401  | Invalid key/token               |
+| `insufficient_balance`    | 402  | Not enough balance              |
+| `provider_out_of_stock`   | 409  | Provider stock unavailable      |
+| `validation_error`        | 422  | Invalid request data            |
+| `rate_limited`            | 429  | Rate limit reached              |
+| `card_declined`           | 402  | Card declined on purchase       |
+| `authentication_required` | 402  | Card needs authentication (SCA) |
+| `card_required`           | 400  | No chargeable card              |
+| `payment_unavailable`     | 503  | Payment gateway unavailable     |
+| `network_error`           | 0    | Transport failure (no response) |
 
 (The API-driven codes above come straight from the response body; the SDK maps
 unknown statuses to `http_<status>`.)
